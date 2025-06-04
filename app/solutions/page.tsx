@@ -1,14 +1,36 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Search, Filter, Clock, User, ArrowUp, Eye, CheckCircle, Building } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Search,
+  Filter,
+  Clock,
+  User,
+  ArrowUp,
+  Eye,
+  CheckCircle,
+  Building,
+} from "lucide-react";
+import Link from "next/link";
+import Navbar from "@/components/ui/Navbar";
 
 const solutions = [
   {
@@ -95,67 +117,273 @@ const solutions = [
     cost: "$$$$$",
     timeline: "1-3 months",
   },
-]
+  {
+    id: 5,
+    title: "Minefield Mapping AI Suite",
+    description:
+      "AI-powered multi-sensor fusion for rapid minefield detection and mapping. Field-tested in NATO exercises.",
+    author: "SafeRouteAI",
+    company: "Defense Robotics Inc.",
+    verified: true,
+    challengeId: 21,
+    challengeTitle: "Drone-Based Minefield Mapping for Safe Passage",
+    trl: "6-7",
+    domain: "ISR",
+    tags: ["ai", "minefield", "mapping", "fusion"],
+    votes: 812,
+    views: 2100,
+    timeAgo: "1 hour ago",
+    status: "active",
+    implementation: "prototype",
+    cost: "$$$",
+    timeline: "3-6 months",
+  },
+  {
+    id: 6,
+    title: "Swarm Drop Precision System",
+    description:
+      "Swarm coordination and payload drop system for humanitarian aid. Achieved 95% accuracy in field trials.",
+    author: "AidSwarmTech",
+    company: "Relief Robotics",
+    verified: true,
+    challengeId: 22,
+    challengeTitle: "Drone Swarm Logistics for Humanitarian Aid Drops",
+    trl: "7-8",
+    domain: "Logistics",
+    tags: ["swarm", "aid", "payload", "precision"],
+    votes: 456,
+    views: 1200,
+    timeAgo: "2 hours ago",
+    status: "selected",
+    implementation: "field-tested",
+    cost: "$$",
+    timeline: "1-2 months",
+  },
+  {
+    id: 7,
+    title: "Persistent Perimeter Watch",
+    description:
+      "Autonomous drone patrol system for 24/7 perimeter breach detection. Integrated with base C2.",
+    author: "PerimeterAI",
+    company: "BaseSecure LLC",
+    verified: true,
+    challengeId: 23,
+    challengeTitle: "Drone-Enabled Perimeter Intrusion Detection",
+    trl: "8-9",
+    domain: "ISR",
+    tags: ["perimeter", "autonomous", "c2", "detection"],
+    votes: 389,
+    views: 900,
+    timeAgo: "3 hours ago",
+    status: "implemented",
+    implementation: "deployed",
+    cost: "$$$",
+    timeline: "6 months",
+  },
+  {
+    id: 8,
+    title: "Bridge Integrity Analyzer",
+    description:
+      "Drone imaging and AI analysis suite for rapid bridge damage assessment. Used in recent NATO exercises.",
+    author: "EngAI",
+    company: "InfraTech Solutions",
+    verified: true,
+    challengeId: 24,
+    challengeTitle: "Drone-Based Bridge Damage Assessment",
+    trl: "6-7",
+    domain: "ISR",
+    tags: ["bridge", "ai", "damage", "assessment"],
+    votes: 277,
+    views: 700,
+    timeAgo: "4 hours ago",
+    status: "active",
+    implementation: "prototype",
+    cost: "$$$",
+    timeline: "2-4 months",
+  },
+  {
+    id: 9,
+    title: "Jammer Hunter Swarm",
+    description:
+      "Swarm-enabled geolocation of hostile jamming sources. Successfully demoed in Red Flag 2024.",
+    author: "SignalHunt",
+    company: "EW Dynamics",
+    verified: true,
+    challengeId: 25,
+    challengeTitle: "Drone-Based Signal Jamming Detection",
+    trl: "7-8",
+    domain: "Electronic Warfare",
+    tags: ["jamming", "swarm", "geolocation", "ew"],
+    votes: 501,
+    views: 1100,
+    timeAgo: "5 hours ago",
+    status: "active",
+    implementation: "field-tested",
+    cost: "$$$",
+    timeline: "3 months",
+  },
+  {
+    id: 10,
+    title: "Urban Combat Resupply Drone",
+    description:
+      "Ruggedized drone for ammo and med supply drops in urban combat. Used by USMC in 2024 exercises.",
+    author: "UrbanSupplyTech",
+    company: "Tactical Robotics",
+    verified: true,
+    challengeId: 26,
+    challengeTitle: "Drone-Based Tactical Resupply in Urban Combat",
+    trl: "8-9",
+    domain: "Logistics",
+    tags: ["urban", "resupply", "rugged", "combat"],
+    votes: 333,
+    views: 950,
+    timeAgo: "6 hours ago",
+    status: "implemented",
+    implementation: "deployed",
+    cost: "$$$",
+    timeline: "1 month",
+  },
+  {
+    id: 11,
+    title: "Camouflage Detection AI",
+    description:
+      "Deep learning model for drone-based detection of camouflaged assets. 87% accuracy in forested terrain.",
+    author: "ForestReconAI",
+    company: "Recon Analytics",
+    verified: true,
+    challengeId: 27,
+    challengeTitle: "Drone-Based Camouflage Detection",
+    trl: "6-7",
+    domain: "ISR",
+    tags: ["camouflage", "ai", "forest", "detection"],
+    votes: 299,
+    views: 780,
+    timeAgo: "7 hours ago",
+    status: "active",
+    implementation: "prototype",
+    cost: "$$",
+    timeline: "2 months",
+  },
+  {
+    id: 12,
+    title: "Maritime Small Craft Tracker",
+    description:
+      "AI-powered drone system for persistent detection of small craft in littoral waters.",
+    author: "MaritimeAI",
+    company: "Naval Robotics",
+    verified: true,
+    challengeId: 28,
+    challengeTitle: "Drone-Based Maritime Surveillance for Small Craft",
+    trl: "7-8",
+    domain: "ISR",
+    tags: ["maritime", "ai", "small-craft", "tracker"],
+    votes: 410,
+    views: 1020,
+    timeAgo: "8 hours ago",
+    status: "active",
+    implementation: "field-tested",
+    cost: "$$$",
+    timeline: "4 months",
+  },
+  {
+    id: 13,
+    title: "CBRN Recon Drone Suite",
+    description:
+      "Integrated CBRN sensors and AI for forward-deployed drone recon. NATO certified.",
+    author: "CBRNTech",
+    company: "CBRN Robotics",
+    verified: true,
+    challengeId: 29,
+    challengeTitle: "Drone-Based CBRN Recon for Forward Units",
+    trl: "8-9",
+    domain: "Other",
+    tags: ["cbrn", "recon", "ai", "forward"],
+    votes: 522,
+    views: 1200,
+    timeAgo: "3 hours ago",
+    status: "implemented",
+    implementation: "deployed",
+    cost: "$$$$",
+    timeline: "6 months",
+  },
+  {
+    id: 14,
+    title: "MeshNet Battlefield Comms",
+    description:
+      "Secure mesh networking for drone-enabled battlefield comms. Used in US Army 2024 trials.",
+    author: "MeshNetComms",
+    company: "CommsTech",
+    verified: true,
+    challengeId: 30,
+    challengeTitle: "Drone-Based Secure Mesh Networking for Battlefield Comms",
+    trl: "7-8",
+    domain: "Communications",
+    tags: ["mesh", "networking", "secure", "battlefield"],
+    votes: 433,
+    views: 1050,
+    timeAgo: "2 hours ago",
+    status: "active",
+    implementation: "field-tested",
+    cost: "$$$",
+    timeline: "2 months",
+  },
+  {
+    id: 15,
+    title: "Smart Payload Drop System",
+    description:
+      "AI-guided payload drop system for high-accuracy resupply in contested zones.",
+    author: "SmartDropAI",
+    company: "Payload Dynamics",
+    verified: true,
+    challengeId: 2,
+    challengeTitle: "Autonomous Resupply Drone Range Extension",
+    trl: "7-8",
+    domain: "Logistics",
+    tags: ["payload", "ai", "resupply", "contested"],
+    votes: 512,
+    views: 1400,
+    timeAgo: "1 hour ago",
+    status: "active",
+    implementation: "prototype",
+    cost: "$$$",
+    timeline: "3 months",
+  },
+];
 
 export default function SolutionsPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedDomain, setSelectedDomain] = useState("all")
-  const [selectedTRL, setSelectedTRL] = useState("all")
-  const [selectedStatus, setSelectedStatus] = useState("all")
-  const [sortBy, setSortBy] = useState("votes")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDomain, setSelectedDomain] = useState("all");
+  const [selectedTRL, setSelectedTRL] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [sortBy, setSortBy] = useState("votes");
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "implemented":
-        return "bg-green-600"
+        return "bg-green-600";
       case "selected":
-        return "bg-blue-600"
+        return "bg-blue-600";
       case "active":
-        return "bg-yellow-600"
+        return "bg-yellow-600";
       default:
-        return "bg-gray-600"
+        return "bg-gray-600";
     }
-  }
+  };
 
   const getTRLColor = (trl: string) => {
-    const level = Number.parseInt(trl.split("-")[0])
-    if (level <= 3) return "border-red-500 text-red-400"
-    if (level <= 6) return "border-yellow-500 text-yellow-400"
-    return "border-green-500 text-green-400"
-  }
+    const level = Number.parseInt(trl.split("-")[0]);
+    if (level <= 3) return "border-red-500 text-red-400";
+    if (level <= 6) return "border-yellow-500 text-yellow-400";
+    return "border-green-500 text-green-400";
+  };
 
   const getCostIndicator = (cost: string) => {
-    return cost.length
-  }
+    return cost.length;
+  };
 
   return (
     <div className="min-h-screen bg-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DW</span>
-              </div>
-              <span className="text-xl font-bold text-white">DroneWERX</span>
-            </Link>
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/challenges" className="text-slate-300 hover:text-white transition-colors">
-                Challenges
-              </Link>
-              <Link href="/solutions" className="text-blue-400 font-medium">
-                Solutions
-              </Link>
-              <Link href="/submit" className="text-slate-300 hover:text-white transition-colors">
-                Submit
-              </Link>
-              <Button size="sm">Sign In</Button>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Navbar activeTab="solutions" />
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
@@ -169,8 +397,13 @@ export default function SolutionsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-slate-300 mb-2 block">Domain</label>
-                  <Select value={selectedDomain} onValueChange={setSelectedDomain}>
+                  <label className="text-sm font-medium text-slate-300 mb-2 block">
+                    Domain
+                  </label>
+                  <Select
+                    value={selectedDomain}
+                    onValueChange={setSelectedDomain}
+                  >
                     <SelectTrigger className="bg-slate-700 border-slate-600">
                       <SelectValue />
                     </SelectTrigger>
@@ -179,13 +412,17 @@ export default function SolutionsPage() {
                       <SelectItem value="counter-uas">Counter-UAS</SelectItem>
                       <SelectItem value="logistics">Logistics</SelectItem>
                       <SelectItem value="isr">ISR</SelectItem>
-                      <SelectItem value="electronic-warfare">Electronic Warfare</SelectItem>
+                      <SelectItem value="electronic-warfare">
+                        Electronic Warfare
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-slate-300 mb-2 block">TRL Level</label>
+                  <label className="text-sm font-medium text-slate-300 mb-2 block">
+                    TRL Level
+                  </label>
                   <Select value={selectedTRL} onValueChange={setSelectedTRL}>
                     <SelectTrigger className="bg-slate-700 border-slate-600">
                       <SelectValue />
@@ -200,15 +437,22 @@ export default function SolutionsPage() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-slate-300 mb-2 block">Status</label>
-                  <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                  <label className="text-sm font-medium text-slate-300 mb-2 block">
+                    Status
+                  </label>
+                  <Select
+                    value={selectedStatus}
+                    onValueChange={setSelectedStatus}
+                  >
                     <SelectTrigger className="bg-slate-700 border-slate-600">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Status</SelectItem>
                       <SelectItem value="active">Active Proposals</SelectItem>
-                      <SelectItem value="selected">Selected Solutions</SelectItem>
+                      <SelectItem value="selected">
+                        Selected Solutions
+                      </SelectItem>
                       <SelectItem value="implemented">Implemented</SelectItem>
                     </SelectContent>
                   </Select>
@@ -218,7 +462,9 @@ export default function SolutionsPage() {
 
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-white text-sm">Solution Stats</CardTitle>
+                <CardTitle className="text-white text-sm">
+                  Solution Stats
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex justify-between text-sm">
@@ -270,14 +516,25 @@ export default function SolutionsPage() {
             {/* Tabs */}
             <Tabs defaultValue="all" className="mb-6">
               <TabsList className="bg-slate-800 border-slate-700">
-                <TabsTrigger value="all" className="data-[state=active]:bg-slate-700">
+                <TabsTrigger
+                  value="all"
+                  className="data-[state=active]:bg-slate-700"
+                >
                   All Solutions ({solutions.length})
                 </TabsTrigger>
-                <TabsTrigger value="selected" className="data-[state=active]:bg-slate-700">
-                  Selected ({solutions.filter((s) => s.status === "selected").length})
+                <TabsTrigger
+                  value="selected"
+                  className="data-[state=active]:bg-slate-700"
+                >
+                  Selected (
+                  {solutions.filter((s) => s.status === "selected").length})
                 </TabsTrigger>
-                <TabsTrigger value="implemented" className="data-[state=active]:bg-slate-700">
-                  Implemented ({solutions.filter((s) => s.status === "implemented").length})
+                <TabsTrigger
+                  value="implemented"
+                  className="data-[state=active]:bg-slate-700"
+                >
+                  Implemented (
+                  {solutions.filter((s) => s.status === "implemented").length})
                 </TabsTrigger>
               </TabsList>
 
@@ -291,25 +548,40 @@ export default function SolutionsPage() {
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge className={getStatusColor(solution.status)}>{solution.status.toUpperCase()}</Badge>
-                            <Badge variant="outline" className={getTRLColor(solution.trl)}>
+                            <Badge className={getStatusColor(solution.status)}>
+                              {solution.status.toUpperCase()}
+                            </Badge>
+                            <Badge
+                              variant="outline"
+                              className={getTRLColor(solution.trl)}
+                            >
                               TRL {solution.trl}
                             </Badge>
-                            <Badge variant="outline" className="border-slate-600 text-slate-400">
+                            <Badge
+                              variant="outline"
+                              className="border-slate-600 text-slate-400"
+                            >
                               {solution.domain}
                             </Badge>
-                            <Badge variant="outline" className="border-purple-500 text-purple-400">
+                            <Badge
+                              variant="outline"
+                              className="border-purple-500 text-purple-400"
+                            >
                               {"$".repeat(getCostIndicator(solution.cost))}
                             </Badge>
                           </div>
                           <CardTitle className="text-white text-xl mb-2 hover:text-blue-400 cursor-pointer">
-                            <Link href={`/solutions/${solution.id}`}>{solution.title}</Link>
+                            <Link href={`/solutions/${solution.id}`}>
+                              {solution.title}
+                            </Link>
                           </CardTitle>
                           <CardDescription className="text-slate-300 text-base leading-relaxed mb-3">
                             {solution.description}
                           </CardDescription>
                           <div className="bg-slate-700/50 p-3 rounded-lg">
-                            <p className="text-sm text-slate-400 mb-1">Addresses Challenge:</p>
+                            <p className="text-sm text-slate-400 mb-1">
+                              Addresses Challenge:
+                            </p>
                             <Link
                               href={`/challenges/${solution.challengeId}`}
                               className="text-blue-400 hover:text-blue-300 font-medium"
@@ -320,7 +592,9 @@ export default function SolutionsPage() {
                         </div>
                         <div className="flex flex-col items-center bg-slate-700 rounded-lg p-3 min-w-[80px]">
                           <ArrowUp className="w-5 h-5 text-slate-400 hover:text-blue-400 cursor-pointer mb-1" />
-                          <span className="text-white font-bold">{solution.votes}</span>
+                          <span className="text-white font-bold">
+                            {solution.votes}
+                          </span>
                           <span className="text-xs text-slate-400">votes</span>
                         </div>
                       </div>
@@ -328,7 +602,11 @@ export default function SolutionsPage() {
                     <CardContent>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {solution.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="bg-slate-700 text-slate-300 text-xs">
+                          <Badge
+                            key={tag}
+                            variant="secondary"
+                            className="bg-slate-700 text-slate-300 text-xs"
+                          >
                             #{tag}
                           </Badge>
                         ))}
@@ -337,12 +615,18 @@ export default function SolutionsPage() {
                       {/* Implementation Details */}
                       <div className="grid grid-cols-3 gap-4 mb-4 p-3 bg-slate-700/30 rounded-lg">
                         <div className="text-center">
-                          <p className="text-xs text-slate-400">Implementation</p>
-                          <p className="text-sm font-medium text-white capitalize">{solution.implementation}</p>
+                          <p className="text-xs text-slate-400">
+                            Implementation
+                          </p>
+                          <p className="text-sm font-medium text-white capitalize">
+                            {solution.implementation}
+                          </p>
                         </div>
                         <div className="text-center">
                           <p className="text-xs text-slate-400">Timeline</p>
-                          <p className="text-sm font-medium text-white">{solution.timeline}</p>
+                          <p className="text-sm font-medium text-white">
+                            {solution.timeline}
+                          </p>
                         </div>
                         <div className="text-center">
                           <p className="text-xs text-slate-400">Cost Level</p>
@@ -363,7 +647,10 @@ export default function SolutionsPage() {
                             {solution.company}
                           </span>
                           {solution.verified && (
-                            <Badge variant="outline" className="text-xs border-green-500 text-green-400">
+                            <Badge
+                              variant="outline"
+                              className="text-xs border-green-500 text-green-400"
+                            >
                               Verified Partner
                             </Badge>
                           )}
@@ -386,16 +673,26 @@ export default function SolutionsPage() {
                 {solutions
                   .filter((s) => s.status === "selected")
                   .map((solution) => (
-                    <Card key={solution.id} className="bg-slate-800 border-blue-500/50">
+                    <Card
+                      key={solution.id}
+                      className="bg-slate-800 border-blue-500/50"
+                    >
                       <CardHeader>
                         <div className="flex items-center gap-2 mb-2">
                           <Badge className="bg-blue-600">SELECTED</Badge>
-                          <Badge variant="outline" className={getTRLColor(solution.trl)}>
+                          <Badge
+                            variant="outline"
+                            className={getTRLColor(solution.trl)}
+                          >
                             TRL {solution.trl}
                           </Badge>
                         </div>
-                        <CardTitle className="text-white text-xl">{solution.title}</CardTitle>
-                        <CardDescription className="text-slate-300">{solution.description}</CardDescription>
+                        <CardTitle className="text-white text-xl">
+                          {solution.title}
+                        </CardTitle>
+                        <CardDescription className="text-slate-300">
+                          {solution.description}
+                        </CardDescription>
                       </CardHeader>
                     </Card>
                   ))}
@@ -405,19 +702,29 @@ export default function SolutionsPage() {
                 {solutions
                   .filter((s) => s.status === "implemented")
                   .map((solution) => (
-                    <Card key={solution.id} className="bg-slate-800 border-green-500/50">
+                    <Card
+                      key={solution.id}
+                      className="bg-slate-800 border-green-500/50"
+                    >
                       <CardHeader>
                         <div className="flex items-center gap-2 mb-2">
                           <Badge className="bg-green-600">
                             <CheckCircle className="w-3 h-3 mr-1" />
                             IMPLEMENTED
                           </Badge>
-                          <Badge variant="outline" className={getTRLColor(solution.trl)}>
+                          <Badge
+                            variant="outline"
+                            className={getTRLColor(solution.trl)}
+                          >
                             TRL {solution.trl}
                           </Badge>
                         </div>
-                        <CardTitle className="text-white text-xl">{solution.title}</CardTitle>
-                        <CardDescription className="text-slate-300">{solution.description}</CardDescription>
+                        <CardTitle className="text-white text-xl">
+                          {solution.title}
+                        </CardTitle>
+                        <CardDescription className="text-slate-300">
+                          {solution.description}
+                        </CardDescription>
                       </CardHeader>
                     </Card>
                   ))}
@@ -427,5 +734,5 @@ export default function SolutionsPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,15 +1,38 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Shield, AlertTriangle, CheckCircle, XCircle, Clock, Flag, Eye, MessageSquare, User } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Shield,
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  Clock,
+  Flag,
+  Eye,
+  MessageSquare,
+  User,
+} from "lucide-react";
+import Link from "next/link";
+import Navbar from "@/components/ui/Navbar";
 
 const pendingReviews = [
   {
@@ -20,7 +43,8 @@ const pendingReviews = [
     submittedAt: "2 hours ago",
     riskLevel: "medium",
     flags: ["technical-specs", "operational-context"],
-    content: "Need solutions for jamming coordinated drone swarms while maintaining friendly communications...",
+    content:
+      "Need solutions for jamming coordinated drone swarms while maintaining friendly communications...",
     reviewNotes: "",
   },
   {
@@ -31,7 +55,8 @@ const pendingReviews = [
     submittedAt: "4 hours ago",
     riskLevel: "low",
     flags: [],
-    content: "Our machine learning approach can identify hostile drones with 97.3% accuracy...",
+    content:
+      "Our machine learning approach can identify hostile drones with 97.3% accuracy...",
     reviewNotes: "",
   },
   {
@@ -42,10 +67,12 @@ const pendingReviews = [
     submittedAt: "6 hours ago",
     riskLevel: "high",
     flags: ["classified-risk", "location-data", "unit-identification"],
-    content: "Operating in [REDACTED] region, need ultra-quiet platform for night operations...",
-    reviewNotes: "Contains potential OPSEC violations - location references and operational details",
+    content:
+      "Operating in [REDACTED] region, need ultra-quiet platform for night operations...",
+    reviewNotes:
+      "Contains potential OPSEC violations - location references and operational details",
   },
-]
+];
 
 const flaggedContent = [
   {
@@ -56,7 +83,8 @@ const flaggedContent = [
     flaggedBy: "ModeratorAlpha",
     reason: "Inappropriate disclosure",
     flaggedAt: "1 day ago",
-    content: "Based on our work with [SPECIFIC UNIT] in [LOCATION], we recommend...",
+    content:
+      "Based on our work with [SPECIFIC UNIT] in [LOCATION], we recommend...",
     status: "pending",
   },
   {
@@ -67,59 +95,38 @@ const flaggedContent = [
     flaggedBy: "Community",
     reason: "Spam/Self-promotion",
     flaggedAt: "2 days ago",
-    content: "Visit our website to learn more about our revolutionary quantum solutions...",
+    content:
+      "Visit our website to learn more about our revolutionary quantum solutions...",
     status: "pending",
   },
-]
+];
 
 export default function ModerationPage() {
-  const [selectedAction, setSelectedAction] = useState("")
-  const [reviewNotes, setReviewNotes] = useState("")
+  const [selectedAction, setSelectedAction] = useState("");
+  const [reviewNotes, setReviewNotes] = useState("");
 
   const getRiskColor = (level: string) => {
     switch (level) {
       case "high":
-        return "bg-red-600"
+        return "bg-red-600";
       case "medium":
-        return "bg-yellow-600"
+        return "bg-yellow-600";
       case "low":
-        return "bg-green-600"
+        return "bg-green-600";
       default:
-        return "bg-gray-600"
+        return "bg-gray-600";
     }
-  }
+  };
 
   const handleReview = (id: number, action: string) => {
-    console.log(`Reviewing item ${id} with action: ${action}`)
-    console.log(`Notes: ${reviewNotes}`)
+    console.log(`Reviewing item ${id} with action: ${action}`);
+    console.log(`Notes: ${reviewNotes}`);
     // Handle review action
-  }
+  };
 
   return (
     <div className="min-h-screen bg-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/50 backdrop-blur">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">DroneWERX Moderation</span>
-            </Link>
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/challenges" className="text-slate-300 hover:text-white transition-colors">
-                Challenges
-              </Link>
-              <Link href="/moderation" className="text-blue-400 font-medium">
-                Moderation
-              </Link>
-              <Badge className="bg-red-600">{pendingReviews.length + flaggedContent.length} Pending</Badge>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
         {/* Stats Overview */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
@@ -127,7 +134,9 @@ export default function ModerationPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-white">{pendingReviews.length}</p>
+                  <p className="text-2xl font-bold text-white">
+                    {pendingReviews.length}
+                  </p>
                   <p className="text-slate-400 text-sm">Pending Reviews</p>
                 </div>
                 <Clock className="w-8 h-8 text-yellow-400" />
@@ -139,7 +148,9 @@ export default function ModerationPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-2xl font-bold text-white">{flaggedContent.length}</p>
+                  <p className="text-2xl font-bold text-white">
+                    {flaggedContent.length}
+                  </p>
                   <p className="text-slate-400 text-sm">Flagged Content</p>
                 </div>
                 <Flag className="w-8 h-8 text-red-400" />
@@ -176,21 +187,31 @@ export default function ModerationPage() {
         <Alert className="mb-8 border-blue-600 bg-blue-600/10">
           <Shield className="h-4 w-4 text-blue-400" />
           <AlertDescription className="text-blue-200">
-            <strong>OPSEC Review Guidelines:</strong> Flag content containing specific unit designations, operational
-            locations, classified technical specifications, or sensitive timing information. When in doubt, escalate to
-            senior moderators.
+            <strong>OPSEC Review Guidelines:</strong> Flag content containing
+            specific unit designations, operational locations, classified
+            technical specifications, or sensitive timing information. When in
+            doubt, escalate to senior moderators.
           </AlertDescription>
         </Alert>
 
         <Tabs defaultValue="pending" className="space-y-6">
           <TabsList className="bg-slate-800 border-slate-700">
-            <TabsTrigger value="pending" className="data-[state=active]:bg-slate-700">
+            <TabsTrigger
+              value="pending"
+              className="data-[state=active]:bg-slate-700"
+            >
               Pending Reviews ({pendingReviews.length})
             </TabsTrigger>
-            <TabsTrigger value="flagged" className="data-[state=active]:bg-slate-700">
+            <TabsTrigger
+              value="flagged"
+              className="data-[state=active]:bg-slate-700"
+            >
               Flagged Content ({flaggedContent.length})
             </TabsTrigger>
-            <TabsTrigger value="history" className="data-[state=active]:bg-slate-700">
+            <TabsTrigger
+              value="history"
+              className="data-[state=active]:bg-slate-700"
+            >
               Review History
             </TabsTrigger>
           </TabsList>
@@ -202,18 +223,29 @@ export default function ModerationPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge className={getRiskColor(item.riskLevel)}>{item.riskLevel.toUpperCase()} RISK</Badge>
-                        <Badge variant="outline" className="border-slate-600 text-slate-400">
+                        <Badge className={getRiskColor(item.riskLevel)}>
+                          {item.riskLevel.toUpperCase()} RISK
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className="border-slate-600 text-slate-400"
+                        >
                           {item.type.toUpperCase()}
                         </Badge>
                         {item.flags.map((flag) => (
-                          <Badge key={flag} variant="outline" className="border-red-500 text-red-400">
+                          <Badge
+                            key={flag}
+                            variant="outline"
+                            className="border-red-500 text-red-400"
+                          >
                             <AlertTriangle className="w-3 h-3 mr-1" />
                             {flag}
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className="text-white text-lg">{item.title}</CardTitle>
+                      <CardTitle className="text-white text-lg">
+                        {item.title}
+                      </CardTitle>
                       <CardDescription className="text-slate-400 flex items-center gap-4 mt-2">
                         <span className="flex items-center">
                           <User className="w-4 h-4 mr-1" />
@@ -229,7 +261,9 @@ export default function ModerationPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="bg-slate-700 p-4 rounded-lg">
-                    <p className="text-slate-300 text-sm leading-relaxed">{item.content}</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      {item.content}
+                    </p>
                   </div>
 
                   {item.reviewNotes && (
@@ -242,16 +276,25 @@ export default function ModerationPage() {
 
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
-                      <Select value={selectedAction} onValueChange={setSelectedAction}>
+                      <Select
+                        value={selectedAction}
+                        onValueChange={setSelectedAction}
+                      >
                         <SelectTrigger className="bg-slate-700 border-slate-600">
                           <SelectValue placeholder="Select action" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="approve">Approve</SelectItem>
-                          <SelectItem value="approve-edit">Approve with Edits</SelectItem>
-                          <SelectItem value="request-revision">Request Revision</SelectItem>
+                          <SelectItem value="approve-edit">
+                            Approve with Edits
+                          </SelectItem>
+                          <SelectItem value="request-revision">
+                            Request Revision
+                          </SelectItem>
                           <SelectItem value="reject">Reject</SelectItem>
-                          <SelectItem value="escalate">Escalate to Senior Moderator</SelectItem>
+                          <SelectItem value="escalate">
+                            Escalate to Senior Moderator
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -283,17 +326,25 @@ export default function ModerationPage() {
 
           <TabsContent value="flagged" className="space-y-6">
             {flaggedContent.map((item) => (
-              <Card key={item.id} className="bg-slate-800 border-slate-700 border-l-4 border-l-red-500">
+              <Card
+                key={item.id}
+                className="bg-slate-800 border-slate-700 border-l-4 border-l-red-500"
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <Badge className="bg-red-600">FLAGGED</Badge>
-                        <Badge variant="outline" className="border-slate-600 text-slate-400">
+                        <Badge
+                          variant="outline"
+                          className="border-slate-600 text-slate-400"
+                        >
                           {item.type.toUpperCase()}
                         </Badge>
                       </div>
-                      <CardTitle className="text-white text-lg">{item.title}</CardTitle>
+                      <CardTitle className="text-white text-lg">
+                        {item.title}
+                      </CardTitle>
                       <CardDescription className="text-slate-400 flex items-center gap-4 mt-2">
                         <span className="flex items-center">
                           <User className="w-4 h-4 mr-1" />
@@ -319,7 +370,9 @@ export default function ModerationPage() {
                   </div>
 
                   <div className="bg-slate-700 p-4 rounded-lg">
-                    <p className="text-slate-300 text-sm leading-relaxed">{item.content}</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      {item.content}
+                    </p>
                   </div>
 
                   <div className="flex gap-2">
@@ -344,7 +397,9 @@ export default function ModerationPage() {
           <TabsContent value="history" className="space-y-6">
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-white">Recent Moderation Actions</CardTitle>
+                <CardTitle className="text-white">
+                  Recent Moderation Actions
+                </CardTitle>
                 <CardDescription className="text-slate-400">
                   History of moderation decisions and actions taken.
                 </CardDescription>
@@ -353,22 +408,34 @@ export default function ModerationPage() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between py-3 border-b border-slate-700">
                     <div>
-                      <p className="text-white font-medium">Approved: "AI-Enhanced Target Recognition"</p>
-                      <p className="text-slate-400 text-sm">Reviewed by ModeratorBeta • 2 hours ago</p>
+                      <p className="text-white font-medium">
+                        Approved: "AI-Enhanced Target Recognition"
+                      </p>
+                      <p className="text-slate-400 text-sm">
+                        Reviewed by ModeratorBeta • 2 hours ago
+                      </p>
                     </div>
                     <Badge className="bg-green-600">APPROVED</Badge>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b border-slate-700">
                     <div>
-                      <p className="text-white font-medium">Rejected: "Classified Drone Specifications"</p>
-                      <p className="text-slate-400 text-sm">Reviewed by ModeratorAlpha • 4 hours ago</p>
+                      <p className="text-white font-medium">
+                        Rejected: "Classified Drone Specifications"
+                      </p>
+                      <p className="text-slate-400 text-sm">
+                        Reviewed by ModeratorAlpha • 4 hours ago
+                      </p>
                     </div>
                     <Badge className="bg-red-600">REJECTED</Badge>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b border-slate-700">
                     <div>
-                      <p className="text-white font-medium">Escalated: "Advanced EW Countermeasures"</p>
-                      <p className="text-slate-400 text-sm">Reviewed by ModeratorGamma • 6 hours ago</p>
+                      <p className="text-white font-medium">
+                        Escalated: "Advanced EW Countermeasures"
+                      </p>
+                      <p className="text-slate-400 text-sm">
+                        Reviewed by ModeratorGamma • 6 hours ago
+                      </p>
                     </div>
                     <Badge className="bg-yellow-600">ESCALATED</Badge>
                   </div>
@@ -379,5 +446,5 @@ export default function ModerationPage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
