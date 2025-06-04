@@ -634,9 +634,14 @@ export default function ChallengesPage() {
   const [challenges, setChallenges] = useState<Challenge[]>(mockChallenges);
 
   useEffect(() => {
-    // Always overwrite for demo/demo reset
-    localStorage.setItem("challenges", JSON.stringify(mockChallenges));
-    setChallenges(mockChallenges);
+    // Only initialize with mock data if localStorage is empty
+    const storedChallenges = localStorage.getItem("challenges");
+    if (!storedChallenges) {
+      localStorage.setItem("challenges", JSON.stringify(mockChallenges));
+      setChallenges(mockChallenges);
+    } else {
+      setChallenges(JSON.parse(storedChallenges));
+    }
   }, []);
 
   const handleVote = (challengeId: number) => {
